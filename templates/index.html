@@ -3,11 +3,7 @@
 <head>
     <title>Student Manager</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -17,7 +13,7 @@
         }
 
         h1 {
-            margin-top: 30px;
+            margin-top: 60px;
             font-size: 40px;
             animation: fadeIn 1s ease-in-out;
         }
@@ -54,7 +50,6 @@
         h3 {
             margin: 20px;
             color: #00ffcc;
-            animation: fadeIn 1.5s ease-in-out;
         }
 
         table {
@@ -64,8 +59,6 @@
             background: rgba(255,255,255,0.08);
             border-radius: 15px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            animation: slideUp 1s ease-in-out;
         }
 
         th, td {
@@ -76,13 +69,8 @@
             background: rgba(0,0,0,0.4);
         }
 
-        tr {
-            transition: 0.3s;
-        }
-
         tr:hover {
             background: rgba(255,255,255,0.1);
-            transform: scale(1.01);
         }
 
         a {
@@ -91,25 +79,42 @@
             padding: 6px 12px;
             border-radius: 6px;
             margin: 2px;
+        }
+
+        .edit { background: orange; }
+        .delete { background: red; }
+        .view { background: #007bff; }
+
+        /* FLASH MESSAGES */
+        .flash {
+            margin: 10px auto;
+            width: 50%;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .success { background: #28a745; }
+        .error { background: #dc3545; }
+
+        /* LOGOUT BUTTON */
+        .logout {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .logout a {
+            background: red;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
             transition: 0.3s;
         }
 
-        .edit {
-            background: orange;
-        }
-
-        .delete {
-            background: red;
-        }
-
-        .edit:hover {
-            background: darkorange;
-            transform: scale(1.1);
-        }
-
-        .delete:hover {
+        .logout a:hover {
             background: darkred;
-            transform: scale(1.1);
         }
 
         /* Animations */
@@ -117,18 +122,26 @@
             from {opacity: 0; transform: translateY(-10px);}
             to {opacity: 1; transform: translateY(0);}
         }
-
-        @keyframes slideUp {
-            from {opacity: 0; transform: translateY(30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
     </style>
 </head>
 
 <body>
 
+<!-- LOGOUT -->
+<div class="logout">
+    <a href="/logout">Logout</a>
+</div>
+
 <h1>Student Management System</h1>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
 <!-- ADD -->
 <form method="POST">
@@ -159,8 +172,9 @@
     <td>{{ student.name }}</td>
     <td>{{ student.usn }}</td>
     <td>
-        <a href="/edit/{{ loop.index0 }}" class="edit">Edit</a>
-        <a href="/delete/{{ loop.index0 }}" class="delete">Delete</a>
+        <a href="/profile/{{ student.id }}" class="view">View</a>
+        <a href="/edit/{{ student.id }}" class="edit">Edit</a>
+        <a href="/delete/{{ student.id }}" class="delete">Delete</a>
     </td>
 </tr>
 {% endfor %}

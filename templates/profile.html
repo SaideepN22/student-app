@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            margin: 100px auto;
+            padding: 30px;
+            width: 40%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #00c6ff;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            background: #00ffcc;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Student Profile</h1>
+
+    <p><strong>Name:</strong> {{ student.name }}</p>
+    <p><strong>USN:</strong> {{ student.usn }}</p>
+
+    <a href="/">← Back</a>
+</div>
+
+</body>
+</html>
